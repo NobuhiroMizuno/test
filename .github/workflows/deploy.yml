@@ -40,10 +40,12 @@ jobs:
         env:
           SSH_KEY     : ${{ secrets.SVAP01_SSH_PRIVATE_KEY }}
           SSH_NAME    : ${{ secrets.SVAP01_SSH_NAME }}
+          SSH_PORT    : ${{ secrets.SVAP01_SSH_PORT }}
           SSH_HOST    : ${{ secrets.SVAP01_SSH_HOST }}
           SSH_CMD     : ${{ secrets.SVAP01_SSH_CMD  }}
         run: |
+          echo 
           echo "$SSH_KEY" > secret_key
           chmod 600 secret_key
-          ssh -oStrictHostKeyChecking=no ${SSH_NAME}@${SSH_HOST} -i secret_key "$SSH_CMD"
+          ssh -oStrictHostKeyChecking=no ${SSH_NAME}@${SSH_HOST} -p ${SSH_PORT} -i secret_key "$SSH_CMD"
           echo success!!
